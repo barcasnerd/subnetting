@@ -1,9 +1,168 @@
-
-    <!--Header-->
-    <header class="text-white" id="about">
-        <div class="container text-center">
-
-            <p class="display-4">¡Haz que tu horario luzca mejor!</p>
-            <p class="lead">Un generador de horarios simple y fresco. Estriliza tu horario y mejora tu eficiencia. </p>
+<!--Header-->
+<header class="text-white mt-4 p-4" id="about">
+    <div class="container text-center">
+        <h1 class="display-3 p-0">¿Cómo crear redes con Subnetting?</h1>
+        <p class="lead p-3">Definido de la forma más simple, el término subnetting hace referencia a la subdivisión de una red en varias subredes. El subneteo permite a los administradores de red, por ejemplo, dividir una red empresarial en varias subredes sin hacerlo público
+            en Internet. Esto se traduce en que el router que establece la conexión entre la red e Internet se especifica como dirección única, aunque puede que haya varios hosts ocultos. Así, el número de hosts que están a disposición del administrador
+            aumenta considerablemente. </p>
+        <div class="container text-left p-4 ">
+            <p class="lead">Sigue los pasos a continuación para definir el proceso de análisis antes de ponerte en marcha con los cálculos:
+            </p>
+            <ul class="lead">
+                <li class="table-responsive">
+                    <div class="container" style="border-radius: 10px;padding: 30px;background-color: rgba(255,255,255,0.1);">
+                        <h6 class="lead"><b>Identifica la clase y la máscara de red por defecto:</b></h6>
+                        <p style="font-size: smaller;">Aquí unos ejemplos para poder identificar el tipo de clase</p>
+                        <div class="table-responsive container p-3 text-center">
+                            <table class="table-responsive table text-light" style="font-size: smaller;">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Ejemplo</th>
+                                        <th scope="col">Clase</th>
+                                        <th scope="col">Máscara por defecto</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>10.0.0.0</td>
+                                        <td>A</td>
+                                        <td>255.0.0.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>192.23.0.0</td>
+                                        <td>B</td>
+                                        <td>255.255.0.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>192.168.1.0</td>
+                                        <td>C</td>
+                                        <td>255.255.255.0</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </li>
+                <li class="table-responsive">
+                    <div class="container mt-4" style="border-radius: 10px;padding: 30px;background-color: rgba(255,255,255,0.1);">
+                        <h6 class="lead"><b>Convierte a binario la máscara de red e identifica la porción de red y la
+                                porción de host:</b></h6>
+                        <p style="font-size: smaller;"><b>Ejemplo: </b> <br> Máscara por defecto: 255.0.0.0 <br> Máscara en binario: 11111111.00000000.00000000.00000000 <br> Porción de red: 8 (Cantidad de bit con valor 1) <br> Porción de Host: 24 (Cantidad de bits con valor 0) </p>
+                    </div>
+                </li>
+                <li class="table-responsive">
+                    <div class="container mt-4" style="border-radius: 10px;padding: 30px;background-color: rgba(255,255,255,0.1);">
+                        <h6 class="lead"><b>Identifica la cantidad de redes que deseas generar:</b></h6>
+                        <div class="container" style="font-size: smaller;">
+                            <p>Sí deseas crear 6 redes con la dirección IP 10.0.0.0, entonces tienes</p>
+                            <p class="text-center"> 2 <sup>n</sup> = # Redes <br> 2<sup>n</sup> &#8805 6 <br> 2
+                                <sup>3</sup> = 8 , lo que indica que "se perderán dos redes y que robaremos 8 bits (n)"
+                            </p>
+                            <p class="text-center"> Máscara de Red: 11111111 . 111 <sub> &#8594 Porción de bits
+                                    "robados"</sub> 00000 . 00000000 . 00000000</p>
+                            <p class="text-center">Máscara de Red: 255 . 224 . 0 . 0 </p>
+                            <p style="font-size:bigger;">Ahora estámos empleando 11 bits para la porción de red, por lo que la máscara de red tiene el formato con prefijo /11</p>
+                            <p class="text-center">11111111.11100000.00000000.00000000 /11</p>
+                        </div>
+                    </div>
+                </li>
+                <li class="table-responsive">
+                    <div class="container mt-4" style="border-radius: 10px;padding: 30px;background-color: rgba(255,255,255,0.1);">
+                        <h6 class="lead"><b>Define el rango de cada subred a crear...</b></h6>
+                        <div class="container" style="font-size: smaller;">
+                            <p class="text-center">Rango de subredes: 256 - segundo valor (octeto) de la máscara de red
+                                <br> 256 - 224 = 32</p>
+                        </div>
+                    </div>
+                </li>
+                <li class="table-responsive">
+                    <div class="container mt-4" style="border-radius: 10px;padding: 30px;background-color: rgba(255,255,255,0.1);">
+                        <h6 class="lead"><b>Determinar la dirección de red y la dirección de broadcast, así como el
+                                rango de IPs utilizables para cada subred: </b></h6>
+                        <p style="font-size: smaller;">Puedes guiarte con el uso de una tabla como la siguiente</p>
+                        <p style="font-size: smaller;"><b>Importante: </b> Se debe tener en cuenta que 2 <sup>n</sup> = 8, entonces creamos 8 subredes para la tabla</p>
+                        <div class="table-responsive container p-3 text-center">
+                            <table class="table-responsive table text-light" style="font-size: smaller;">
+                                <thead>
+                                    <tr>
+                                        <th scope="col"># Red</th>
+                                        <th scope="col">Dirección de Red</th>
+                                        <th scope="col">1° Ip válida</th>
+                                        <th scope="col">Última Ip válida</th>
+                                        <th scope="col">Dirección de Broadcast</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>10.0.0.0</td>
+                                        <td>10.0.0.1</td>
+                                        <td>10.31.255.254</td>
+                                        <td>10.31.255.255</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>10.32.0.0</td>
+                                        <td>10.32.0.1</td>
+                                        <td>10.63.255.254</td>
+                                        <td>10.63.255.255</td>
+                                    </tr>
+                                    <tr>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                    </tr>
+                                    <tr>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                    </tr>
+                                    <tr>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                    </tr>
+                                    <tr>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                    </tr>
+                                    <tr>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                    </tr>
+                                    <tr>
+                                        <td>8</td>
+                                        <td>10.244.0.0</td>
+                                        <td>10.224.0.1</td>
+                                        <td>10.255.255.254</td>
+                                        <td>10.255.255.255</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </li>
+                <li class="table-responsive">
+                    <div class="container mt-4" style="border-radius: 10px;padding: 30px;background-color: rgba(255,255,255,0.1);">
+                        <h6 class="lead"><b>Determinar la cantidad de hosts por subred:</b></h6>
+                        <div class="container" style="font-size: smaller;">
+                            <p class="text-center">Cantidad de hosts por subred: <br> 2<sup>m</sup>-2 # Hosts disponibles por subred <br>m: Cantidad de 0 en la máscara de red <br> 2 <sup>21</sup> - 2 = 2,097,150 hosts disponibles por subred</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
-    </header>
+    </div>
+</header>

@@ -1,0 +1,36 @@
+<!--Generator-->
+<div style=" border-top: 1px solid white;padding: 5%;" id="generador">
+    <div class="container text-light" style="background-color: black;" id="inputContainer ">
+        <div class="container text-center">
+            <h1 class="display-3 p-2">Generador de Subnetting Online</h1>
+            <p class="lead mt-4">Genera aquí subredes automáticamente ingresando los valores pedidos para cada octeto de la IP y el número de redes que quieres generar. No solo tendrás los valores, sino que también puedes ver el paso mostrado en la información anterior. </p>
+        </div>
+        <div class="card-group mt-5 table-responsive" style="background-color: black;">
+            <div class="card border-0" style="background-color: black;" id="colorContainer">
+                <div class="card-group border-0" style="background-color: black;">
+                    <div class="card border-0 d-flex flex-row justify-content-center align-items-center m-0 p-0" style="background-color: black;">
+                        <p id="ipTag" class="lead mt-3 ml-2">Dirección IP: </p>
+                        <input id="ip1" type="number" min="0" max="255" oninput="validity.valid||(value='');" class="materia lead ml-5 ml-5" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="255">
+                        <input id="ip2" type="number" min="0" max="255" oninput="validity.valid||(value='');" class="materia lead ml-5 ml-5" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="255">
+                        <input id="ip3" type="number" min="0" max="255" oninput="validity.valid||(value='');" class="materia lead ml-5 ml-5" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="255">
+                        <input id="ip4" type="number" min="0" max="255" oninput="validity.valid||(value='');" class="materia lead ml-5 ml-5" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="255">
+                    </div>
+                </div>
+            </div style="background-color: black;">
+            <div class="card border-0" id="colorContainer" style="background-color: black;">
+                <div class="card-group border-0" style="background-color: black;">
+                    <div class="card border-0 d-flex flex-row justify-content-center align-items-center m-0 p-0" style="background-color: black;">
+                        <p class="lead mt-3 ml-2">Cantidad de Redes: </p>
+                        <input id="network" type="number" min="0" max="100" oninput="validity.valid||(value='');" class="materia lead ml-5 ml-5" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="#">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="card-group mt 5 table-responsive">
+            <div class="container text-center">
+                <button id="buttonGenerator" type="button" style="margin: 3%;width: 70%;background-color: rgba(255,255,255,0.1); color: white;" class="btn btn-lg lead" id="generate">Subnetting</button>
+            </div>
+        </div>
+    </div>
+</div>
