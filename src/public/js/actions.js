@@ -273,14 +273,14 @@ function showingFirstIp(ip, n, clase, range) {
 function showingLastIp(ip, n, clase, range) {
     var vec = ip.split(".");
     if (clase == 'A') {
-        vec[1] = ((n + 1) * range) == 256 ? 255 : ((n + 1) * range) - 1;
+        vec[1] = ((n + 1) * range) == 256 ? 255 - 1 : ((n + 1) * range) - 1;
         vec[2] = 255;
         vec[3] = 254;
     } else if (clase == 'B') {
-        vec[2] = ((n + 1) * range) == 256 ? 255 : ((n + 1) * range) - 1;
+        vec[2] = ((n + 1) * range) == 256 ? 255 - 1 : ((n + 1) * range) - 1;
         vec[3] = 254;
     } else {
-        vec[3] = ((n + 1) * range) == 256 ? 255 : ((n + 1) * range) - 2;
+        vec[3] = ((n + 1) * range) == 256 ? 255 - 1 : ((n + 1) * range) - 2;
     }
 
     return "" + vec[0] + "." + vec[1] + "." + vec[2] + "." + vec[3];
@@ -290,11 +290,11 @@ function showingLastIp(ip, n, clase, range) {
 function showingBroadcast(ip, n, clase, range) {
     var vec = ip.split(".");
     if (clase == 'A') {
-        vec[1] = ((n + 1) * range) == 256 ? 255 : ((n + 1) * range) - 1;
+        vec[1] = ((n + 1) * range) == 256 ? 255 - 1 : ((n + 1) * range) - 1;
         vec[2] = 255;
         vec[3] = 255;
     } else if (clase == 'B') {
-        vec[2] = ((n + 1) * range) == 256 ? 255 : ((n + 1) * range) - 1;
+        vec[2] = ((n + 1) * range) == 256 ? 255 - 1 : ((n + 1) * range) - 1;
         vec[3] = 255;
     } else {
         vec[3] = ((n + 1) * range) == 256 ? 255 : ((n + 1) * range) - 1;
