@@ -14,7 +14,7 @@ var Network = {
     newMask: null,
     format: null,
     rango: null,
-    hosts: null,
+    hosts: null
 };
 
 //Acciones de eventos
@@ -82,8 +82,7 @@ function stepByStep(ip, cant) {
     secondStep(Network.clase);
     thirdStep(ip, cant, Network.mask);
     fourthStep(Network.clase, Network.newMask);
-    fivethStep(Network.porcionHost, Network.bitsRobados);
-    showAllSteps();
+    showAllSteps(Network);
     console.log(Network);
 }
 
@@ -136,12 +135,12 @@ function secondStep(clase) {
 //Tercer paso
 function thirdStep(ip, cant, mask) {
     var i = 0;
-    while ((2 ^ i) < cant) {
+    while ((2 ** i) < cant) {
         i++;
     }
     if (i > 0 && i < 25) {
         Network.requested = cant;
-        Network.bitsRobados = (i - 1);
+        Network.bitsRobados = i;
         Network.format = Network.bitsRobados + Network.porcionRed;
         Network.newMask = newMask(Network.format);
     } else {
@@ -192,14 +191,8 @@ function identifyRange(clase, mask) {
     }
 }
 
-//Paso cinco
-function fivethStep(m, n) {
-    Network.hosts = (2 ** (m - n)) - 2;
-}
-
-
 //Mostrar todo
-function showAllSteps() {
+function showAllSteps(Network) {
     resultsContainer.innerHTML = resultsContainer.innerHTML + `
     <h4 class="display-4">Entradas:</h4>
     <p class="lead">Dirección IP: ${Network.ip} <br> Número de redes a generar:  ${Network.requested} </p>
@@ -220,10 +213,69 @@ function showAllSteps() {
     <p class="lead">Rango: 256 - Valor modificado de la máscara = ${Network.rango}</p>
     <h4 class="display-6">Paso 5</h3>
     <p class="lead">Determinar la dirección de red y la dirección de broadcast, así como el rango de IPs utilizables para cada subred</p>
-    <div class="text-center" id="tableResult">
+    <div  class="text-center table-responsive container mt-4" style="border-radius: 10px;padding: 30px;background-color: rgba(255,255,255,0.1);" id="tableResult">
+    <h1>Space reserved for table results</h1>
     </div>
     <h4 class="display-6">Paso 6</h3>
     <p class="lead">Determinar la cantidad de Hosts por subred:</p>
     <p class="text-center lead">Cantidad de hosts por subred: <br> 2<sup>m</sup>-2 # Hosts disponibles por subred <br>m: Cantidad de 0 en la máscara de red <br> 2 <sup>${Network.porcionHost - Network.bitsRobados}</sup> - 2 = ${Network.hosts} hosts disponibles por subred</p>
     `;
+}
+
+function showigIp(ip, n, clase, range) {
+    var vec = ip.split(".");
+    if (clase == 'A') {
+        vec[1] = parseInt(vec[1]) + (n * range);
+    } else if (clase == 'B') {
+        vec[2] = parseInt(vec[2]) + (n * range);
+    } else {
+        vec[3] = parseInt(vec[3]) + (n * range);
+    }
+    return "" + vec[0] + "." + vec[1] + "." + vec[2] + "." + vec[3];
+}
+
+function showingFirstIp(ip, n, clase, range) {
+    var vec = ip.split(".");
+    if (clase == 'A') {
+        vec[1] = parseInt(vec[1]) + (n * range);
+        vec[3] = 1;
+    } else if (clase == 'B') {
+        vec[2] = parseInt(vec[2]) + (n * range);
+        vec[3] = 1;
+    } else {
+        vec[3] = parseInt(vec[3]) + (n * range);
+    }
+
+    return "" + vec[0] + "." + vec[1] + "." + vec[2] + "." + vec[3];
+}
+
+function showingLastIp(ip, n, clase, range) {
+    var vec = ip.split(".");
+    if (clase == 'A') {
+        vec[1] = parseInt(vec[1]) + ((n + 1) * range);
+        vec[2] = 255;
+        vec[3] = 254;
+    } else if (clase == 'B') {
+        vec[2] = parseInt(vec[2]) + ((n + 1) * range);
+        vec[3] = 254;
+    } else {
+        vec[3] = parseInt(vec[3]) + ((n + 1) * range);
+    }
+
+    return "" + vec[0] + "." + vec[1] + "." + vec[2] + "." + vec[3];
+}
+
+function showingBroadcast(ip, n, clase, range) {
+    var vec = ip.split(".");
+    if (clase == 'A') {
+        vec[1] = parseInt(vec[1]) + ((n + 1) * range);
+        vec[2] = 255;
+        vec[3] = 255;
+    } else if (clase == 'B') {
+        vec[2] = parseInt(vec[2]) + ((n + 1) * range);
+        vec[3] = 255;
+    } else {
+        vec[3] = parseInt(vec[3]) + ((n + 1) * range);
+    }
+    return "" + vec[0] + "." + vec[1] + "." + vec[2] + "." + vec[3];
 }
