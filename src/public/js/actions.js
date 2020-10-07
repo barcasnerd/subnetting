@@ -141,6 +141,7 @@ function thirdStep(ip, cant, mask) {
     if (i > 0 && i < 25) {
         Network.requested = cant;
         Network.bitsRobados = i;
+        Network.hosts = 2**(Network.porcionHost - Network.bitsRobados);
         Network.format = Network.bitsRobados + Network.porcionRed;
         Network.newMask = newMask(Network.format);
     } else {
@@ -193,6 +194,7 @@ function identifyRange(clase, mask) {
 
 //Mostrar todo
 function showAllSteps(Network) {
+    const hosts = Network.hosts;
     resultsContainer.innerHTML = resultsContainer.innerHTML + `
     <h4 class="display-4">Entradas:</h4>
     <p class="lead">Dirección IP: ${Network.ip} <br> Número de redes a generar:  ${Network.requested} </p>
@@ -213,14 +215,29 @@ function showAllSteps(Network) {
     <p class="lead">Rango: 256 - Valor modificado de la máscara = ${Network.rango}</p>
     <h4 class="display-6">Paso 5</h3>
     <p class="lead">Determinar la dirección de red y la dirección de broadcast, así como el rango de IPs utilizables para cada subred</p>
-    <div  class="text-center table-responsive container mt-4" style="border-radius: 10px;padding: 30px;background-color: rgba(255,255,255,0.1);" id="tableResult">
-    <h1>Space reserved for table results</h1>
+    <div class="text-center table-responsive" id="tableResult">
     </div>
+ `;
+    var finalResults = document.getElementById("tableResult");
+    for (let i = 0; i < (2 ** Network.bitsRobados); i++) {
+        finalResults.innerHTML = finalResults.innerHTML + `
+            <div class="container table-responsive mt-4" style="max-width:70%;border-radius: 10px;padding: 30px;background-color: rgba(255,255,255,0.1);">
+            <h5>Red número ${i + 1}</h5>
+            <p class="lead">Dirección de Red: ${showigIp(Network.ip, i, Network.clase, Network.rango)}</p>
+            <p class="lead">1° Dirección Disponible: ${showingFirstIp(Network.ip, i, Network.clase, Network.rango)}</p>
+            <p class="lead">Últ Dirección Disponible: ${showingLastIp(Network.ip, i, Network.clase, Network.rango)}</p>
+            <p class="lead">Dirección de Broadcast: ${showingBroadcast(Network.ip, i, Network.clase, Network.rango)}</p>
+            </div>
+        `;
+    }
+    resultsContainer.innerHTML = resultsContainer.innerHTML + `
     <h4 class="display-6">Paso 6</h3>
     <p class="lead">Determinar la cantidad de Hosts por subred:</p>
-    <p class="text-center lead">Cantidad de hosts por subred: <br> 2<sup>m</sup>-2 # Hosts disponibles por subred <br>m: Cantidad de 0 en la máscara de red <br> 2 <sup>${Network.porcionHost - Network.bitsRobados}</sup> - 2 = ${Network.hosts} hosts disponibles por subred</p>
-    `;
+    <p class="text-center lead">Cantidad de hosts por subred: <br> 2<sup>m</sup>-2 # Hosts disponibles por subred <br>m: Cantidad de 0 en la máscara de red <br> 2 <sup>${Network.porcionHost - Network.bitsRobados}</sup> - 2 = ${hosts} hosts disponibles por subred</p>
+   `;
+
 }
+
 
 function showigIp(ip, n, clase, range) {
     var vec = ip.split(".");
