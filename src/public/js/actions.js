@@ -83,7 +83,6 @@ function stepByStep(ip, cant) {
     thirdStep(ip, cant, Network.mask);
     fourthStep(Network.clase, Network.newMask);
     showAllSteps(Network);
-    console.log(Network);
 }
 
 //Primer paso
@@ -219,7 +218,7 @@ function showAllSteps(Network) {
     </div>
  `;
     var finalResults = document.getElementById("tableResult");
-    for (let i = 0; i < (2 ** Network.bitsRobados); i++) {
+    for (let i = 0; i < Network.requested; i++) {
         finalResults.innerHTML = finalResults.innerHTML + `
             <div class="container table-responsive mt-4" style="max-width:70%;border-radius: 10px;padding: 30px;background-color: rgba(255,255,255,0.1);">
             <h5>Red número ${i + 1}</h5>
@@ -238,7 +237,7 @@ function showAllSteps(Network) {
 
 }
 
-
+//Devuelve la ip de la red
 function showigIp(ip, n, clase, range) {
     var vec = ip.split(".");
     if (clase == 'A') {
@@ -251,6 +250,7 @@ function showigIp(ip, n, clase, range) {
     return "" + vec[0] + "." + vec[1] + "." + vec[2] + "." + vec[3];
 }
 
+//Retorna la primera ip disponible de la red
 function showingFirstIp(ip, n, clase, range) {
     var vec = ip.split(".");
     if (clase == 'A') {
@@ -266,6 +266,7 @@ function showingFirstIp(ip, n, clase, range) {
     return "" + vec[0] + "." + vec[1] + "." + vec[2] + "." + vec[3];
 }
 
+//devuelve la ultima ip disponible de la red
 function showingLastIp(ip, n, clase, range) {
     var vec = ip.split(".");
     if (clase == 'A') {
@@ -282,6 +283,7 @@ function showingLastIp(ip, n, clase, range) {
     return "" + vec[0] + "." + vec[1] + "." + vec[2] + "." + vec[3];
 }
 
+//Devuelve la dirección de broadcast de la red  
 function showingBroadcast(ip, n, clase, range) {
     var vec = ip.split(".");
     if (clase == 'A') {

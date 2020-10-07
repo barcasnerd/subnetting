@@ -56,7 +56,12 @@ footer {
         width: 80%;
     }
     #ipTag {
-        display: none;
+        font-size: 70%;
+        margin: 0%;
+        padding: 0%;
+    }
+    #inputCant{
+        font-size: 70%;
         margin: 0%;
         padding: 0%;
     }
