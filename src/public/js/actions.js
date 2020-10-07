@@ -141,7 +141,7 @@ function thirdStep(ip, cant, mask) {
     if (i > 0 && i < 25) {
         Network.requested = cant;
         Network.bitsRobados = i;
-        Network.hosts = 2**(Network.porcionHost - Network.bitsRobados);
+        Network.hosts = 2 ** (Network.porcionHost - Network.bitsRobados);
         Network.format = Network.bitsRobados + Network.porcionRed;
         Network.newMask = newMask(Network.format);
     } else {
@@ -242,11 +242,11 @@ function showAllSteps(Network) {
 function showigIp(ip, n, clase, range) {
     var vec = ip.split(".");
     if (clase == 'A') {
-        vec[1] = parseInt(vec[1]) + (n * range);
+        vec[1] = (parseInt(vec[1]) + (n * range) == 256) ? 255 : parseInt(vec[1]) + (n * range);
     } else if (clase == 'B') {
-        vec[2] = parseInt(vec[2]) + (n * range);
+        vec[2] = (parseInt(vec[1]) + (n * range) == 256) ? 255 : parseInt(vec[2]) + (n * range);
     } else {
-        vec[3] = parseInt(vec[3]) + (n * range);
+        vec[3] = (parseInt(vec[1]) + (n * range) == 256) ? 255 : parseInt(vec[3]) + (n * range);
     }
     return "" + vec[0] + "." + vec[1] + "." + vec[2] + "." + vec[3];
 }
@@ -269,14 +269,14 @@ function showingFirstIp(ip, n, clase, range) {
 function showingLastIp(ip, n, clase, range) {
     var vec = ip.split(".");
     if (clase == 'A') {
-        vec[1] = parseInt(vec[1]) + ((n + 1) * range);
+        vec[1] = parseInt(vec[1]) + ((n + 1) * range) == 256 ? 255 : parseInt(vec[1]) + ((n + 1) * range);
         vec[2] = 255;
         vec[3] = 254;
     } else if (clase == 'B') {
-        vec[2] = parseInt(vec[2]) + ((n + 1) * range);
+        vec[2] = parseInt(vec[1]) + ((n + 1) * range) == 256 ? 255 : parseInt(vec[2]) + ((n + 1) * range);
         vec[3] = 254;
     } else {
-        vec[3] = parseInt(vec[3]) + ((n + 1) * range);
+        vec[3] = parseInt(vec[1]) + ((n + 1) * range) == 256 ? 255 : parseInt(vec[3]) + ((n + 1) * range);
     }
 
     return "" + vec[0] + "." + vec[1] + "." + vec[2] + "." + vec[3];
@@ -285,14 +285,14 @@ function showingLastIp(ip, n, clase, range) {
 function showingBroadcast(ip, n, clase, range) {
     var vec = ip.split(".");
     if (clase == 'A') {
-        vec[1] = parseInt(vec[1]) + ((n + 1) * range);
+        vec[1] = parseInt(vec[1]) + ((n + 1) * range) == 256 ? 255 : parseInt(vec[1]) + ((n + 1) * range);
         vec[2] = 255;
         vec[3] = 255;
     } else if (clase == 'B') {
-        vec[2] = parseInt(vec[2]) + ((n + 1) * range);
+        vec[2] = parseInt(vec[1]) + ((n + 1) * range) == 256 ? 255 : parseInt(vec[2]) + ((n + 1) * range);
         vec[3] = 255;
     } else {
-        vec[3] = parseInt(vec[3]) + ((n + 1) * range);
+        vec[3] = parseInt(vec[1]) + ((n + 1) * range) == 256 ? 255 : parseInt(vec[3]) + ((n + 1) * range);
     }
     return "" + vec[0] + "." + vec[1] + "." + vec[2] + "." + vec[3];
 }
