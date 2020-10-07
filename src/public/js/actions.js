@@ -13,7 +13,8 @@ var Network = {
     bitsRobados: null,
     newMask: null,
     format: null,
-    rango: null
+    rango: null,
+    hosts: null,
 };
 
 //Acciones de eventos
@@ -81,6 +82,8 @@ function stepByStep(ip, cant) {
     secondStep(Network.clase);
     thirdStep(ip, cant, Network.mask);
     fourthStep(Network.clase, Network.newMask);
+    fivethStep(Network.porcionHost, Network.bitsRobados);
+    showAllSteps();
     console.log(Network);
 }
 
@@ -136,10 +139,14 @@ function thirdStep(ip, cant, mask) {
     while ((2 ^ i) < cant) {
         i++;
     }
-    Network.requested = cant;
-    Network.bitsRobados = (i - 1);
-    Network.format = Network.bitsRobados + Network.porcionRed;
-    Network.newMask = newMask(Network.format);
+    if (i > 0 && i < 25) {
+        Network.requested = cant;
+        Network.bitsRobados = (i - 1);
+        Network.format = Network.bitsRobados + Network.porcionRed;
+        Network.newMask = newMask(Network.format);
+    } else {
+        alert('La cantidad de de redes pedidas para esta red supera el límite de procesamiento');
+    }
 }
 
 //Proporciona la nueva máscara de red de las redes a generar
@@ -174,6 +181,7 @@ function fourthStep(clase, mask) {
     Network.rango = identifyRange(clase, mask);
 }
 
+//Devuelve el rango de cada subred
 function identifyRange(clase, mask) {
     if (clase === 'A') {
         return 256 - parseInt(mask.split(".")[1]);
@@ -184,3 +192,38 @@ function identifyRange(clase, mask) {
     }
 }
 
+//Paso cinco
+function fivethStep(m, n) {
+    Network.hosts = (2 ** (m - n)) - 2;
+}
+
+
+//Mostrar todo
+function showAllSteps() {
+    resultsContainer.innerHTML = resultsContainer.innerHTML + `
+    <h4 class="display-4">Entradas:</h4>
+    <p class="lead">Dirección IP: ${Network.ip} <br> Número de redes a generar:  ${Network.requested} </p>
+    <h4 class="display-6">Paso 1</h3>
+    <p class="lead">Identificar la clase y la máscara de red por defecto: <br> Clase: ${Network.clase} <br> Máscara por defecto: ${Network.mask}</p>
+    <h4 class="display-6">Paso 2</h3>
+    <p class="lead">Convertir la máscara a binario e identificar la porción de red y porción de host</p>
+    <p class=lead>Porción de red: ${Network.porcionRed}</p>
+    <p class=lead>Porción de Host: ${Network.porcionHost}</p>
+    <h4 class="display-6">Paso 3</h3>
+    <p class=lead>Identificar la cantidad de redes a generar</p>
+    <p class=lead>Se desea crear ${Network.requested} redes con la dirección ${Network.ip}, entonces:</p>
+    <p class=lead>2 <sup>n</sup> = # Redes <br> 2<sup>n</sup> &#8805 ${Network.requested} <br> 2
+    <sup>${Network.bitsRobados}</sup> = ${2 ** Network.bitsRobados} , lo que indica que "se perderán ${(2 ** Network.bitsRobados) - Network.requested} redes y que robaremos ${Network.bitsRobados} bits (n)"</p>
+    <p class="lead">Nueva Máscara de Red: ${Network.newMask} / ${Network.format}</p>
+    <h4 class="display-6">Paso 4</h3>
+    <p class="lead">Definir el rango de cada subred a crear</p>
+    <p class="lead">Rango: 256 - Valor modificado de la máscara = ${Network.rango}</p>
+    <h4 class="display-6">Paso 5</h3>
+    <p class="lead">Determinar la dirección de red y la dirección de broadcast, así como el rango de IPs utilizables para cada subred</p>
+    <div class="text-center" id="tableResult">
+    </div>
+    <h4 class="display-6">Paso 6</h3>
+    <p class="lead">Determinar la cantidad de Hosts por subred:</p>
+    <p class="text-center lead">Cantidad de hosts por subred: <br> 2<sup>m</sup>-2 # Hosts disponibles por subred <br>m: Cantidad de 0 en la máscara de red <br> 2 <sup>${Network.porcionHost - Network.bitsRobados}</sup> - 2 = ${Network.hosts} hosts disponibles por subred</p>
+    `;
+}
