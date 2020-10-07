@@ -52,7 +52,8 @@ footer {
 
 @media (max-width:1020px) {
     .materia {
-        width: 30%;
+        font-size: 80%;
+        width: 80%;
     }
     #ipTag {
         display: none;

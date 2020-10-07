@@ -10,7 +10,7 @@
                 <div class="card-group border-0" style="background-color: black;">
                     <div class="card border-0 d-flex flex-row justify-content-center align-items-center m-0 p-0" style="background-color: black;">
                         <p id="ipTag" class="lead mt-3 ml-2">Dirección IP: </p>
-                        <input id="ip1" type="number" min="0" max="255" oninput="validity.valid||(value='');" class="materia lead ml-5 ml-5" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="255">
+                        <input id="ip1" type="number" min="0" max="223" oninput="validity.valid||(value='');" class="materia lead ml-5 ml-5" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="223">
                         <input id="ip2" type="number" min="0" max="255" oninput="validity.valid||(value='');" class="materia lead ml-5 ml-5" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="255">
                         <input id="ip3" type="number" min="0" max="255" oninput="validity.valid||(value='');" class="materia lead ml-5 ml-5" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="255">
                         <input id="ip4" type="number" min="0" max="255" oninput="validity.valid||(value='');" class="materia lead ml-5 ml-5" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="255">
@@ -21,7 +21,7 @@
                 <div class="card-group border-0" style="background-color: black;">
                     <div class="card border-0 d-flex flex-row justify-content-center align-items-center m-0 p-0" style="background-color: black;">
                         <p class="lead mt-3 ml-2">Cantidad de Redes: </p>
-                        <input id="network" type="number" min="0" max="100" oninput="validity.valid||(value='');" class="materia lead ml-5 ml-5" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="#">
+                        <input id="network" type="number" min="1" max="100" oninput="validity.valid||(value='');" class="materia lead ml-5 ml-5" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="#">
                     </div>
                 </div>
             </div>
@@ -31,6 +31,9 @@
             <div class="container text-center">
                 <button id="buttonGenerator" type="button" style="margin: 3%;width: 70%;background-color: rgba(255,255,255,0.1); color: white;" class="btn btn-lg lead" id="generate">Subnetting</button>
             </div>
+        </div>
+        <div class="mt-5 table-responsive" id="resultsContainer">
+ 
         </div>
     </div>
 </div>

@@ -12,7 +12,7 @@
                 <li class="table-responsive">
                     <div class="container" style="border-radius: 10px;padding: 30px;background-color: rgba(255,255,255,0.1);">
                         <h6 class="lead"><b>Identifica la clase y la máscara de red por defecto:</b></h6>
-                        <p style="font-size: smaller;">Aquí unos ejemplos para poder identificar el tipo de clase</p>
+                        <p style="font-size: smaller;">Las direcciones de red de <b>clase A</b>, tienen para su primer número un rango de 0 a 127. Para las de <b>clase B</b>, tenemos que su primer número va de 128 a 191. Finalmente, las de <b>clase C</b> tienen como primer valor de 192 a 223 <br>Aquí unos ejemplos para poder identificar el tipo de clase</p>
                         <div class="table-responsive container p-3 text-center">
                             <table class="table-responsive table text-light" style="font-size: smaller;">
                                 <thead>
@@ -24,12 +24,12 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>10.0.0.0</td>
+                                        <td>10.251.3.0</td>
                                         <td>A</td>
                                         <td>255.0.0.0</td>
                                     </tr>
                                     <tr>
-                                        <td>192.23.0.0</td>
+                                        <td>140.23.1.1</td>
                                         <td>B</td>
                                         <td>255.255.0.0</td>
                                     </tr>
@@ -56,7 +56,7 @@
                         <div class="container" style="font-size: smaller;">
                             <p>Sí deseas crear 6 redes con la dirección IP 10.0.0.0, entonces tienes</p>
                             <p class="text-center"> 2 <sup>n</sup> = # Redes <br> 2<sup>n</sup> &#8805 6 <br> 2
-                                <sup>3</sup> = 8 , lo que indica que "se perderán dos redes y que robaremos 8 bits (n)"
+                                <sup>3</sup> = 8 , lo que indica que "se perderán dos redes y que robaremos 3 bits (n)"
                             </p>
                             <p class="text-center"> Máscara de Red: 11111111 . 111 <sub> &#8594 Porción de bits
                                     "robados"</sub> 00000 . 00000000 . 00000000</p>
