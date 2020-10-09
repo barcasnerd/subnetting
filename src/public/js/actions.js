@@ -218,10 +218,10 @@ function showAllSteps(Network) {
     </div>
  `;
     var finalResults = document.getElementById("tableResult");
-    for (let i = 0; i < Network.requested; i++) {
+    for (let i = 1; i < Network.requested; i++) {
         finalResults.innerHTML = finalResults.innerHTML + `
             <div class="container table-responsive mt-4" style="max-width:70%;border-radius: 10px;padding: 30px;background-color: rgba(255,255,255,0.1);">
-            <h5>Red número ${i + 1}</h5>
+            <h5>Red número ${i}</h5>
             <p class="lead">Dirección de Red: ${showigIp(Network.ip, i, Network.clase, Network.rango)}</p>
             <p class="lead">1° Dirección Disponible: ${showingFirstIp(Network.ip, i, Network.clase, Network.rango)}</p>
             <p class="lead">Últ Dirección Disponible: ${showingLastIp(Network.ip, i, Network.clase, Network.rango)}</p>
